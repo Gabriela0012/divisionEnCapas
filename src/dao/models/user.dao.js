@@ -1,0 +1,42 @@
+import mongoose from "mongoose";
+import moment from "moment";
+
+const collection = 'Users';
+
+
+const schema = mongoose.Schema({ 
+  email : {
+    type: 'string',
+    required:true,
+    unique:true,
+    index: { unique:true }
+  },
+  name:{
+    type: 'string',
+    required:true
+  },
+  surname:String,
+  age:Number,
+  nickname:String,
+  avatar_url:String,
+  phone:String,
+  timestamp:{
+    type: String,
+    default: ()=>moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+  },
+  cart: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'Carts',
+  },
+  password: {
+    type: String,
+    required:true
+
+  }
+
+})
+
+const usersModel = mongoose.model(collection,schema);
+
+
+export default usersModel;
